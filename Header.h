@@ -8,6 +8,8 @@ using namespace std;
 #include <algorithm>
 #include <random>
 
+#include "process.cpp"	// ¸ðµâ
+
 #define Array vector
 
 #define print(data) \
