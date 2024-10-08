@@ -1,27 +1,26 @@
 #include "Header.h"
-
-typedef struct _Friends {
-	string Name;
-	string phoneNum;	// 010-1234-5678 -> 0으로 시작하기도 하고 - 짝대기 붙으니깐
-	struct _Friends* link = NULL;
-} Friends;
+#include "Process.h"
 
 int main()
 {
+	Friends* head = NULL;
 	int choice = 10;
 	while (choice != 0)
 	{
-		choice = 10;
-		ShowTable();
+		choice = 10;	// 선택 초기화
+		ShowTable(&head);	// &head를 보내는 이유 -> 초기위치 알려주기
 		println("수행할 작업을 선택해주세요");
 		print("1:삽입 / 2:삭제 / 3:수정 / 4:검색 / 0:종료 : ");
 		scanf("%d", &choice);
+		while (getchar() != '\n');
 		
 		switch (choice)
 		{
 		case 1:
+			AddFriend(&head);
 			break;
 		case 2:
+			DeleteFriend(&head);
 			break;
 		case 3:
 			break;

@@ -18,12 +18,15 @@
     <ClInclude Include="Header.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Process.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="homework.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="process.cpp">
+    <ClCompile Include="Process.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

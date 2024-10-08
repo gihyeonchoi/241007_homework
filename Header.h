@@ -8,8 +8,6 @@ using namespace std;
 #include <algorithm>
 #include <random>
 
-#include "process.cpp"	// ¸ðµâ
-
 #define Array vector
 
 #define print(data) \
@@ -58,7 +56,7 @@ using namespace std;
 #define setArray(ary) ary.erase(unique(ary.begin(), ary.end()),ary.end())
 #define removeChar(strr, chr) strr.erase(remove(strr.begin(), strr.end(), chr), strr.end())
 
-Array <Array <int>> emptyArray2(int row, int col) {
+inline Array <Array <int>> emptyArray2(int row, int col) {
 	Array <Array <int>> ary2;
 	Array <int> tmp;
 	for (int i = 0; i < row; i++) {
