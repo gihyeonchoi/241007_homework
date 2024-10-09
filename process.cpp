@@ -19,14 +19,39 @@ void ShowTable(Friends** head)
 
 void AddFriend(Friends** head)
 {
-	char name[8], phone[12];
-	print("이름을 입력해주세요 :");
-	cin.getline(name, 8);
-	print("번호를 입력해주세요 :");
-	cin.getline(phone, 12);
+	//char name[8], phone[12];
+	string name, phone;
+	string a = "0";
+	print("[추가]이름을 입력해주세요 :");
+	getline(cin, name);
+	print("[추가]번호를 입력해주세요 :");
+	getline(cin, phone);
+	Friends* tmp = *head;
+	if (name.compare(a) == 0) {
+		println("해당 이름은 사용할 수 없습니다.");
+		return;
+	}
+
+	if (*head != NULL && name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0)
+	{
+		println ("이미 등록되어있는 사람입니다.");
+		return;
+	}
+	while (*head != NULL && tmp->link != NULL)
+	{
+		Friends* pre = tmp;
+		tmp = tmp->link;
+		if (name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0)
+		{
+			println("이미 등록되어있는 사람입니다.");
+			return;
+		}
+	}
+
 	Friends* newfriend = new Friends;
 	newfriend->Name = name;
 	newfriend->phoneNum = phone;
+
 	if (*head == NULL)
 	{
 		*head = newfriend;
@@ -50,6 +75,7 @@ void DeleteFriend(Friends** head)
 	println("어떤 기준으로 삭제하시겠습니까 ?");
 	print("1:순서 / 2:이름 / 3:전화번호 : ");
 	scanf("%d", &choice);
+	while (getchar() != '\n');
 	switch (choice)
 	{
 	case 1:
@@ -58,7 +84,7 @@ void DeleteFriend(Friends** head)
 		scanf("%d", &index);
 		while (getchar() != '\n');
 		if (count == 0 || count < index || index < 0) {		// 예외처리
-			print("데이터가 없거나 올바르지 않은 값을 입력했습니다.");
+			println("데이터가 없거나 올바르지 않은 값을 입력했습니다.");
 			return;
 		}
 		if (count2 == index)		// 첫번째 값 삭제하고 싶으면
@@ -81,9 +107,55 @@ void DeleteFriend(Friends** head)
 		}
 		return;
 	case 2:
-		break;
+	{
+		string delname;
+		print("삭제할 대상의 이름을 입력해주세요 (취소 0) : ");
+		getline(cin, delname);
+		if (tmp->Name.compare(delname) == 0)
+		{
+			*head = tmp->link;
+			delete tmp;
+			return;
+		}
+		while (tmp->link != NULL)
+		{
+			Friends* pre = tmp;
+			tmp = tmp->link;
+			if (tmp->Name.compare(delname) == 0)
+			{
+				pre->link = tmp->link;
+				delete tmp;
+				return;
+			}
+		}
+		println("취소하였거나 찾을 수 없는 이름입니다.");
+		return;
+	}
 	case 3:
-		break;
+	{
+		string delPhonenum;
+		print("삭제할 대상의 번호를 입력해주세요 (취소 0) : ");
+		getline(cin, delPhonenum);
+		if (tmp->Name.compare(delPhonenum) == 0)
+		{
+			*head = tmp->link;
+			delete tmp;
+			return;
+		}
+		while (tmp->link != NULL)
+		{
+			Friends* pre = tmp;
+			tmp = tmp->link;
+			if (tmp->phoneNum.compare(delPhonenum) == 0)
+			{
+				pre->link = tmp->link;
+				delete tmp;
+				return;
+			}
+		}
+		println("취소하였거나 찾을 수 없는 번호입니다.");
+		return;
+	}
 	default:
 		println("올바른 값을 입력해 주세요.");
 		break;
