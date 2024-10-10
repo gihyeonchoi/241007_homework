@@ -1,20 +1,49 @@
 #include "Header.h"
 #include "Process.h"
 
-void ShowTable(Friends** head)
+void ShowTable(Friends** head, string search)
 {
 	int count = 1;
 	Friends* tmp = *head;
 	cout << "\n\n\n\n\n\n\n" << endl;
-	cout << "+--No.--+--------Name--------+---------PhoneNumber------+" << endl;
-	while (tmp != NULL)
+	cout << "+--No.--+--------Name--------+---------PhoneNumber------+" << endl;	// 간지
+	if (search.empty())	// 매개변수 없이 모든 테이블 데이터 출력
 	{
-		cout << "| " << count << "\t\t" << tmp->Name << "\t\t\t" << tmp->phoneNum << "\t|" << endl;
-		tmp = tmp->link;
-		count++;
+		
+		while (tmp != NULL)
+		{
+			cout << "| " << count << "\t\t" << tmp->Name << "\t\t\t" << tmp->phoneNum << "\t|" << endl;
+			tmp = tmp->link;
+			count++;
+		}
+		
+	}
+	else
+	{
+		if (CheckData(tmp->Name, tmp->phoneNum, search) == 1)	// 검색했는데 처음 나온경우
+		{
+			cout << "| " << count << "\t\t" << tmp->Name << "\t\t\t" << tmp->phoneNum << "\t|" << endl;
+		}
+		while (tmp->link != NULL)
+		{
+			tmp = tmp->link;
+			count++;
+			if (CheckData(tmp->Name, tmp->phoneNum, search) == 1)
+			{
+				cout << "| " << count << "\t\t" << tmp->Name << "\t\t\t" << tmp->phoneNum << "\t|" << endl;
+			}
+		}
 	}
 	cout << "+-------+--------------------+--------------------------+" << endl;
 	cout << "\n\n\n\n\n\n\n" << endl;
+}
+
+int CheckData(string name, string phonenum, string search)
+{
+	if (name.compare(search) == 0 || phonenum.compare(search) == 0)
+		return 1;
+	else
+		return 0;
 }
 
 void AddFriend(Friends** head)
@@ -32,16 +61,17 @@ void AddFriend(Friends** head)
 		return;
 	}
 
-	if (*head != NULL && name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0)
+	if ((*head != NULL && name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0) || (*head != NULL && phone==tmp->phoneNum))	// 처음부터 같을경우
 	{
 		println ("이미 등록되어있는 사람입니다.");
 		return;
 	}
-	while (*head != NULL && tmp->link != NULL)
+
+	while (*head != NULL && tmp->link != NULL)		// 그 이후부터 같을 경우
 	{
 		Friends* pre = tmp;
 		tmp = tmp->link;
-		if (name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0)
+		if ((name.compare(tmp->Name) == 0 && phone.compare(tmp->phoneNum) == 0) || phone.compare(tmp->phoneNum) == 0)
 		{
 			println("이미 등록되어있는 사람입니다.");
 			return;
@@ -231,6 +261,21 @@ void AlterData(Friends** head)
 		return;
 	}
 }
+
+void SearchData(Friends** head)
+{
+	if (*head != NULL)
+	{
+		Friends* tmp = *head;
+		string searchdata;
+		print("검색할 대상의 이름 혹은 번호를 입력해 주세요 : ");
+		getline(cin, searchdata);
+		ShowTable(&tmp, searchdata);
+		return;
+	}
+	println("현재 데이터가 없습니다.");
+}
+
 
 int CountLinkedList(Friends** head)		// 길이세기
 {

@@ -7,8 +7,11 @@ typedef struct _Friends {
 	struct _Friends* link = NULL;
 } Friends;
 
-void ShowTable(Friends**);
+void ShowTable(Friends**, string search = "");
 void AddFriend(Friends**);
 void DeleteFriend(Friends**);
 void AlterData(Friends**);
+void SearchData(Friends**);
+
+int CheckData(string, string, string);
 int CountLinkedList(Friends**);
