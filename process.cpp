@@ -73,11 +73,13 @@ void DeleteFriend(Friends** head)
 	int choice;
 	Friends* tmp = *head;
 	println("어떤 기준으로 삭제하시겠습니까 ?");
-	print("1:순서 / 2:이름 / 3:전화번호 : ");
+	print("1:순서 / 2:이름 / 3:전화번호 / 0:취소 : ");
 	scanf("%d", &choice);
 	while (getchar() != '\n');
 	switch (choice)
 	{
+	case 0:
+		return;
 	case 1:
 		int index;
 		print("삭제할 대상의 순서 번호를 입력해주세요 (취소 0) : ");
@@ -162,6 +164,73 @@ void DeleteFriend(Friends** head)
 	}
 }
 
+void AlterData(Friends** head)
+{
+	int choice;
+	string deldata, alterdata;
+	Friends* tmp = *head;
+	println("수정할 데이터 종류를 선택해주세요.");
+	print("1:이름 / 2:전화번호 / 0:취소 : ");
+	scanf("%d", &choice);
+	while (getchar() != '\n');
+	switch (choice)
+	{
+	case 0:
+		return;
+	case 1:
+		print("변경할 대상의 이름을 입력해주세요 (취소 0) : ");
+		getline(cin, deldata);
+
+		if (tmp->Name.compare(deldata) == 0)
+		{
+			cout << "\n변경할 이름을 적어주세요 (현재 " << tmp->Name << ") : ";
+			getline(cin, alterdata);
+			tmp->Name = alterdata;
+			return;
+		}
+		while (tmp->link != NULL)
+		{
+			Friends* pre = tmp;
+			tmp = tmp->link;
+			if (tmp->Name.compare(deldata) == 0)
+			{
+				cout << "\n변경할 이름을 적어주세요 (현재 " << tmp->Name << ") : ";
+				getline(cin, alterdata);
+				tmp->Name = alterdata;
+				return;
+			}
+		}
+
+		println("취소하였거나 찾을 수 없는 이름입니다.");
+		return;
+	case 2:
+		print("수정할 대상의 번호를 입력해주세요 (취소 0) : ");
+		getline(cin, deldata);
+		
+		if (tmp->phoneNum.compare(deldata) == 0)
+		{
+			cout << "\n변경할 번호를 적어주세요 (현재 " << tmp->phoneNum << ") : ";
+			getline(cin, alterdata);
+			tmp->phoneNum = alterdata;
+			return;
+		}
+		while (tmp->link != NULL)
+		{
+			Friends* pre = tmp;
+			tmp = tmp->link;
+			if (tmp->phoneNum.compare(deldata) == 0)
+			{
+				cout << "\n변경할 번호를 적어주세요 (현재 " << tmp->phoneNum << ") : ";
+				getline(cin, alterdata);
+				tmp->phoneNum = alterdata;
+				return;
+			}
+		}
+
+		println("취소하였거나 찾을 수 없는 번호입니다.");
+		return;
+	}
+}
 
 int CountLinkedList(Friends** head)		// 길이세기
 {

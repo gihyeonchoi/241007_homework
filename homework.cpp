@@ -23,6 +23,7 @@ int main()
 			DeleteFriend(&head);
 			break;
 		case 3:
+			AlterData(&head);
 			break;
 		case 4:
 			break;

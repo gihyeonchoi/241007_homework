@@ -10,4 +10,5 @@ typedef struct _Friends {
 void ShowTable(Friends**);
 void AddFriend(Friends**);
 void DeleteFriend(Friends**);
+void AlterData(Friends**);
 int CountLinkedList(Friends**);
